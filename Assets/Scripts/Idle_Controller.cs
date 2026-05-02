@@ -18,6 +18,7 @@ public class Idle_Controller : MonoBehaviour
     public AudioClip footstepSound;
     public AudioClip jumpSound;
     public AudioClip deathSound;
+    public AudioClip winSound;
   
     bool isWalking = false;
 
@@ -119,6 +120,24 @@ public class Idle_Controller : MonoBehaviour
 
         Invoke(nameof(ShowGameOver), 1.5f);
     }
+    public void Win()
+{
+    isDead = true; // 🔥 หยุด Update ทั้งหมด (สำคัญมาก)
+
+    
+
+    // 🔇 หยุดเสียงเดิน + reset state
+    audioSource.Stop();
+    isWalking = false;
+
+    // 🔊 เล่นเสียงชนะ
+    audioSource.loop = false;
+    audioSource.PlayOneShot(winSound);
+
+    // 🎬 (ถ้ามี animation ชนะ)
+    am.SetBool("Jump", false);
+    
+}
 
     void ShowGameOver()
     {

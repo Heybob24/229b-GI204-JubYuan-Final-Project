@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
 
     public GameObject gameOverPanel;
+    public GameObject winPanel;
 
     public GameObject scoreUI;
       public AudioSource bgmSource;
@@ -40,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     void UpdateScoreUI()
     {
-        scoreText.text = "Score: " + score;
+        scoreText.text = "X " + score;
     }
 
     // 💀 Game Over
@@ -50,6 +51,18 @@ public class GameManager : MonoBehaviour
         scoreUI.SetActive(false);
         Time.timeScale = 0f;
     }
+    public void WinGame()
+{
+    winPanel.SetActive(true);
+    scoreUI.SetActive(false);
+
+    StopBGM(); // 🔇 หยุดเพลงพื้นหลัง
+
+   
+  
+
+    Time.timeScale = 0f; // ⏸ หยุดเกม
+}
 
     // 🔄 Restart
     public void Retry()
