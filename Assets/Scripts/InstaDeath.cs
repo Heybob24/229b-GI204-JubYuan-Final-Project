@@ -10,7 +10,7 @@ public class InstaDeath : MonoBehaviour
 
         if (player != null)
         {
-            player.Die(); // 💀 ตายทันที
+            player.Die();
         }
     }
 }

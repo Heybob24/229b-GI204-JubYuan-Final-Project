@@ -15,7 +15,7 @@ public class PlayerAudio : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
 
-        // 👣 เสียงเดิน
+        // เสียงเดิน
         if (Mathf.Abs(x) > 0.1f)
         {
             if (!isWalking)
@@ -36,13 +36,13 @@ public class PlayerAudio : MonoBehaviour
         }
     }
 
-    // 🦘 กระโดด
+    // กระโดด
     public void PlayJumpSound()
     {
         audioSource.PlayOneShot(jumpSound);
     }
 
-    // 💀 ตาย
+    // ตาย
     public void PlayDeathSound()
     {
         audioSource.PlayOneShot(deathSound);

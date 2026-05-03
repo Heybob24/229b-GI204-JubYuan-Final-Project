@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
     public float force = 20f;
     public float direction = 1f;
 
-    public int damage = 1; // 🔥 เพิ่มดาเมจ
+    public int damage = 1; // เพิ่มดาเมจ
 
     void Awake()
     {
@@ -23,14 +23,14 @@ public class Projectile : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        // 💥 ถ้าโดน Player
+        // ถ้าโดน Player
         if (coll.gameObject.CompareTag("Player"))
         {
             // เรียก GameManager ลด HP
             GameManager.instance.TakeDamage(damage);
         }
 
-        // 💥 ชนอะไรก็หาย
+        // ชนอะไรก็หาย
         if (coll.gameObject.CompareTag("Player") || coll.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);

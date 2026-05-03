@@ -7,7 +7,7 @@ public class Goal : MonoBehaviour
     if (collision.CompareTag("Player"))
     {
         Idle_Controller player = collision.GetComponent<Idle_Controller>();
-        player.Win(); // 🔥 เรียกตรงนี้
+        player.Win();
 
         GameManager.instance.WinGame();
     }

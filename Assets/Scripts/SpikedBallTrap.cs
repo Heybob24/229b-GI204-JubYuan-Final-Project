@@ -24,7 +24,7 @@ public class SpikedBallTrap : MonoBehaviour
     private float direction = 1f;
     private float t = 0f;
 
-    // 🔥 กันโดนซ้ำในเฟรมเดียว
+    // กันโดนซ้ำในเฟรมเดียว
     private HashSet<GameObject> hitThisFrame = new HashSet<GameObject>();
 
     void LateUpdate()
@@ -77,7 +77,7 @@ public class SpikedBallTrap : MonoBehaviour
         }
     }
 
-    // ===== 💥 DAMAGE (เหมือนกระสุน) =====
+    // ===== DAMAGE (เหมือนกระสุน) =====
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (!coll.CompareTag("Player")) return;

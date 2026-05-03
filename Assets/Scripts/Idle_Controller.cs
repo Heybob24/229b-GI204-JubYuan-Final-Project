@@ -35,13 +35,13 @@ public class Idle_Controller : MonoBehaviour
 
         x = Input.GetAxis("Horizontal");
 
-        // 🎬 Animation
+        // Animation
         am.SetFloat("Speed", Mathf.Abs(x));
 
-        // 🚶 Move
+        // Move
         rb.velocity = new Vector2(x * moveSpeed, rb.velocity.y);
 
-        // 👣 เสียงเดิน (loop)
+        // เสียงเดิน
         if (Mathf.Abs(x) > 0.1f)
         {
             if (!isWalking)
@@ -61,18 +61,18 @@ public class Idle_Controller : MonoBehaviour
             }
         }
 
-        // 🦘 Jump
+        // Jump
         if (Input.GetButtonDown("Jump") && jumpCount < maxJumps)
         {
             jumpCount++;
             am.SetBool("Jump", true);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
 
-            // 🔊 เสียงกระโดด (ไม่ทับ loop)
+            // เสียงกระโดด 
             audioSource.PlayOneShot(jumpSound);
         }
 
-        // 🔄 Flip
+        // Flip
         if (x > 0)
             transform.localScale = new Vector3(sx, transform.localScale.y, transform.localScale.z);
         else if (x < 0)
@@ -109,7 +109,7 @@ public class Idle_Controller : MonoBehaviour
     am.ResetTrigger("Die");
     am.SetTrigger("Die");
 
-    // 🔥 บังคับเล่น animation
+    // บังคับเล่น animation
     am.Play("Die", 0, 0f);
 
     GameManager.instance.StopBGM();
@@ -118,19 +118,19 @@ public class Idle_Controller : MonoBehaviour
 }
     public void Win()
 {
-    isDead = true; // 🔥 หยุด Update ทั้งหมด (สำคัญมาก)
+    isDead = true; // หยุด Update ทั้งหมด
 
     
 
-    // 🔇 หยุดเสียงเดิน + reset state
+    // หยุดเสียงเดิน + reset state
     audioSource.Stop();
     isWalking = false;
 
-    // 🔊 เล่นเสียงชนะ
+    // เล่นเสียงชนะ
     audioSource.loop = false;
     audioSource.PlayOneShot(winSound);
 
-    // 🎬 (ถ้ามี animation ชนะ)
+    // (ถ้ามี animation ชนะ)
     am.SetBool("Jump", false);
     
 }

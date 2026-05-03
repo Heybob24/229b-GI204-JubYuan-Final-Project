@@ -77,20 +77,20 @@ public class GameManager : MonoBehaviour
 
         UpdateHPUI();
 
-        // 🔊 เสียงโดน
+        // เสียงโดน
         if (sfxSource != null && hitSound != null)
             sfxSource.PlayOneShot(hitSound);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        // 💥 เอฟเฟคโดน
+        // เอฟเฟคโดน
         if (player != null && hitEffectPrefab != null)
 {
     GameObject fx = Instantiate(hitEffectPrefab, player.transform.position, Quaternion.identity);
     Destroy(fx, 1f); // ⏱ หายใน 1 วิ
 }
 
-        // 💥 Knockback (เสริม)
+        // Knockback (เสริม)
         if (player != null)
         {
             Rigidbody2D rb = player.GetComponent<Rigidbody2D>();

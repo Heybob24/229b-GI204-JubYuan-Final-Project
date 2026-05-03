@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public float delay = 0.1f; // เวลาให้เสียงเล่น
 
-    // ▶️ ไปหน้าเลือกด่าน
+    // ไปหน้าเลือกด่าน
     public void LoadLevelSelect()
     {
         Time.timeScale = 1f;
@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("LevelSelect");
     }
 
-    // ▶️ โหลดฉากแบบใช้ชื่อ
+    // โหลดฉากแบบใช้ชื่อ
     public void LoadScene(string sceneName)
     {
         Time.timeScale = 1f;
@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // ❌ Quit
+    // Quit
     public void QuitGame()
     {
 #if UNITY_WEBGL

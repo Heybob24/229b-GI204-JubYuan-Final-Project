@@ -27,7 +27,7 @@ public class MovingPlatform : MonoBehaviour
         }
     }
 
-    // 🔥 ทำให้ Player ติดไปกับ Platform
+    // ทำให้ Player ติดไปกับ Platform
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

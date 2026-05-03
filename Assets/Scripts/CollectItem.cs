@@ -22,20 +22,20 @@ public class CollectItem : MonoBehaviour
             // เพิ่มคะแนน
             gm.AddScore(value);
 
-            // 🔊 เล่นเสียง
+            // เล่นเสียง
             if (collectSound != null)
             {
                 AudioSource.PlayClipAtPoint(collectSound, transform.position);
             }
 
-            // ✨ สร้างเอฟเฟค
+            // สร้างเอฟเฟค
             if (collectEffect != null)
             {
                 GameObject fx = Instantiate(collectEffect, transform.position, Quaternion.identity);
 Destroy(fx, 0.5f);
             }
 
-            // ❌ ลบไอเทม
+            // ลบไอเทม
             Destroy(gameObject);
         }
     }
