@@ -1,10 +1,14 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SpikedBallTrap : MonoBehaviour
 {
     [Header("References")]
     public GameObject metalChain;
     public GameObject spikedBall;
+
+    [Header("Damage")]
+    public int damage = 1;
 
     [Header("Settings")]
     public bool closedLoop = true;
@@ -20,49 +24,70 @@ public class SpikedBallTrap : MonoBehaviour
     private float direction = 1f;
     private float t = 0f;
 
+    // 🔥 กันโดนซ้ำในเฟรมเดียว
+    private HashSet<GameObject> hitThisFrame = new HashSet<GameObject>();
+
+    void LateUpdate()
+    {
+        // reset ทุกเฟรม
+        hitThisFrame.Clear();
+    }
+
     void Update()
     {
+        // ===== Movement =====
         if (closedLoop)
         {
-            // Full 360 rotation
             currentAngle += rotationSpeed * Time.deltaTime * direction;
         }
         else
         {
-            // Pendulum swing between angle limits
             t += Time.deltaTime * rotationSpeed * direction;
             if (t >= 1f || t <= 0f) direction *= -1f;
+
             float eased = rotationEase.Evaluate(Mathf.Clamp01(t));
             currentAngle = startingAngle + (eased * anglesRange) - (anglesRange / 2f);
         }
 
-        // Position the ball
         float rad = currentAngle * Mathf.Deg2Rad;
         Vector3 ballPos = transform.position + new Vector3(
             Mathf.Sin(rad) * radius,
             -Mathf.Cos(rad) * radius,
             0f
         );
+
         spikedBall.transform.position = ballPos;
 
-        // Rotate chain links between anchor and ball
         UpdateChain();
     }
 
     void UpdateChain()
     {
-        // Position chain links evenly along the arc
         int linkCount = metalChain.transform.childCount;
+
         for (int i = 0; i < linkCount; i++)
         {
             float lerp = (float)(i + 1) / (linkCount + 1);
-            float rad = currentAngle * Mathf.Deg2Rad;
+
             metalChain.transform.GetChild(i).position = Vector3.Lerp(
                 transform.position,
                 spikedBall.transform.position,
                 lerp
             );
         }
+    }
+
+    // ===== 💥 DAMAGE (เหมือนกระสุน) =====
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        if (!coll.CompareTag("Player")) return;
+
+        // กันโดนซ้ำในเฟรมเดียว
+        if (hitThisFrame.Contains(coll.gameObject)) return;
+
+        hitThisFrame.Add(coll.gameObject);
+
+        GameManager.instance.TakeDamage(damage);
     }
 
     private void OnDrawGizmos()

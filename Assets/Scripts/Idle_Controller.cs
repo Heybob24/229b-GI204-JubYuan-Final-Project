@@ -87,39 +87,35 @@ public class Idle_Controller : MonoBehaviour
             am.SetBool("Jump", false);
         }
 
-        if (coll.gameObject.CompareTag("Obstacle"))
-        {
-            Die();
-        }
+       
     }
 
-    void Die()
-    {
-        if (isDead) return;
-        isDead = true;
+    public void Die()
+{
+    if (isDead) return;
+    isDead = true;
 
-        // ❌ หยุดทุกอย่าง
-        rb.velocity = Vector2.zero;
-        rb.bodyType = RigidbodyType2D.Static; // 🔥 สำคัญ (ไม่ขยับอีก)
+    rb.velocity = Vector2.zero;
+    rb.bodyType = RigidbodyType2D.Static;
 
-        // ❌ ปิด Collider กันชนซ้ำ
-        GetComponent<Collider2D>().enabled = false;
+    GetComponent<Collider2D>().enabled = false;
 
-        // 🔇 หยุดเสียงเดิน
-        audioSource.Stop();
+    audioSource.Stop();
+    audioSource.PlayOneShot(deathSound);
 
-        // 🔊 เสียงตาย
-        audioSource.PlayOneShot(deathSound);
+    am.SetFloat("Speed", 0);
+    am.SetBool("Jump", false);
 
-        // 🎬 Animation
-        am.SetBool("Jump", false);
-        am.SetTrigger("Die");
+    am.ResetTrigger("Die");
+    am.SetTrigger("Die");
 
-        // 🔇 ปิดเพลงพื้นหลัง
-        GameManager.instance.StopBGM();
+    // 🔥 บังคับเล่น animation
+    am.Play("Die", 0, 0f);
 
-        Invoke(nameof(ShowGameOver), 1.5f);
-    }
+    GameManager.instance.StopBGM();
+
+    Invoke(nameof(ShowGameOver), 1.5f);
+}
     public void Win()
 {
     isDead = true; // 🔥 หยุด Update ทั้งหมด (สำคัญมาก)
