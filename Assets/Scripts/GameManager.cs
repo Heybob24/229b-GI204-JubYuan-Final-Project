@@ -142,7 +142,7 @@ public class GameManager : MonoBehaviour
             {
                 if (sr != null)
                 {
-                    // 🔴 แฟลชแดง
+                    
                     sr.color = (sr.color == Color.white) ? Color.red : Color.white;
                 }
 

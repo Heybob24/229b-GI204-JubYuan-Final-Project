@@ -134,8 +134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Projectile
   rb: {fileID: 4362357910933227076}
-  force: 10
+  targetSpeed: 3
+  timeToReachSpeed: 0.2
   direction: 1
+  damage: 1
 --- !u!61 &320575676232021563
 BoxCollider2D:
   m_ObjectHideFlags: 0

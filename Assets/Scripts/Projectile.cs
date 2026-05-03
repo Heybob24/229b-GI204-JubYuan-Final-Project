@@ -3,10 +3,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public Rigidbody2D rb;
-    public float force = 20f;
+    public float targetSpeed = 20f; 
+    public float timeToReachSpeed = 0.1f; 
     public float direction = 1f;
-
-    public int damage = 1; // เพิ่มดาเมจ
+    public int damage = 1;
 
     void Awake()
     {
@@ -15,22 +15,32 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
-        Vector2 dir = new Vector2(direction, 0f);
-        rb.velocity = dir.normalized * force;
+        
+        float acceleration = targetSpeed / timeToReachSpeed;
+
+        
+        float mass = rb.mass;
+        float forceMagnitude = mass * acceleration;
+
+        
+        Vector2 forceVector = new Vector2(direction, 0f).normalized * forceMagnitude;
+
+        
+        rb.AddForce(forceVector, ForceMode2D.Impulse);
+
+        
 
         Destroy(gameObject, 5f);
     }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        // ถ้าโดน Player
+        
         if (coll.gameObject.CompareTag("Player"))
         {
-            // เรียก GameManager ลด HP
             GameManager.instance.TakeDamage(damage);
         }
 
-        // ชนอะไรก็หาย
         if (coll.gameObject.CompareTag("Player") || coll.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
