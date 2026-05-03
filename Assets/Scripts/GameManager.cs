@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
         scoreText.text = "X " + score;
     }
 
-    // 💀 Game Over
     public void GameOver()
     {
         gameOverPanel.SetActive(true);
@@ -56,15 +55,15 @@ public class GameManager : MonoBehaviour
     winPanel.SetActive(true);
     scoreUI.SetActive(false);
 
-    StopBGM(); // 🔇 หยุดเพลงพื้นหลัง
+    StopBGM(); // หยุดเพลงพื้นหลัง
 
    
   
 
-    Time.timeScale = 0f; // ⏸ หยุดเกม
+    Time.timeScale = 0f; // หยุดเกม
 }
 
-    // 🔄 Restart
+    // Restart
     public void Retry()
 {
     Time.timeScale = 1f; // กันเกมค้างจาก GameOver
